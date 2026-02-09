@@ -4,8 +4,9 @@ import { DM_Sans, Space_Mono } from "next/font/google"
 
 import "./globals.css"
 import { CartProvider } from "@/lib/cart-context"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
+import { SiteHeader } from "@/components/layout/SiteHeader"
+import { SiteFooter } from "@/components/layout/SiteFooter"
+import { ScrollToTop } from "@/components/layout/ScrollToTop"
 
 const _dmSans = DM_Sans({ subsets: ["latin"] })
 const _spaceMono = Space_Mono({ weight: ["400", "700"], subsets: ["latin"] })
@@ -28,6 +29,7 @@ export default function RootLayout({
           <SiteHeader />
           <main className="min-h-screen">{children}</main>
           <SiteFooter />
+          <ScrollToTop />
         </CartProvider>
       </body>
     </html>

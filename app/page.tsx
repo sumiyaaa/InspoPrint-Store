@@ -1,9 +1,10 @@
 "use client"
 
-import { HeroSection } from "@/components/hero-section"
-import { CategoryCards } from "@/components/category-cards"
-import { FeaturedProducts } from "@/components/featured-products"
-import { PromoBanner } from "@/components/promo-banner"
+import { HeroSection } from "@/components/home/HeroSection"
+import { CategoryCards } from "@/components/home/CategoryCards"
+import { FeaturedProducts } from "@/components/home/FeaturedProducts"
+import { Testimonials } from "@/components/home/Testimonials"
+import { PromoBanner } from "@/components/home/PromoBanner"
 
 export default function HomePage() {
   return (
@@ -11,6 +12,7 @@ export default function HomePage() {
       <HeroSection />
       <CategoryCards />
       <FeaturedProducts />
+      <Testimonials />
       <PromoBanner />
     </>
   )

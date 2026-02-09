@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 import type { Product } from "./data"
 
 export interface CartItem {
@@ -24,6 +24,11 @@ const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const addItem = useCallback((product: Product, size: string, color: string) => {
     setItems((prev) => {
@@ -70,8 +75,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems([])
   }, [])
 
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0)
-  const totalPrice = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+  const totalItems = mounted ? items.reduce((sum, item) => sum + item.quantity, 0) : 0
+  const totalPrice = mounted ? items.reduce((sum, item) => sum + item.product.price * item.quantity, 0) : 0
 
   return (
     <CartContext.Provider

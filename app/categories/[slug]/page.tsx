@@ -2,9 +2,10 @@
 
 import { use, useState, useMemo } from "react"
 import { getProductsByCategory, type Product } from "@/lib/data"
-import { ProductCard } from "@/components/product-card"
+import { ProductCard } from "@/components/product/ProductCard"
 import { Button } from "@/components/ui/button"
 import { SlidersHorizontal, X } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 const sizeOptions = ["S", "M", "L", "XL", "XXL"]
 const priceRanges = [
@@ -37,9 +38,19 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
   const activeFilters = (selectedSize ? 1 : 0) + (selectedPrice !== 0 ? 1 : 0)
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 lg:px-8">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="mx-auto max-w-7xl px-4 py-10 lg:px-8"
+    >
       {/* Header */}
-      <div className="mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-8"
+      >
         <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
           {categoryName}
         </h1>
@@ -48,10 +59,15 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
             ? "Bold custom prints on premium cotton. Express yourself."
             : "Cozy, playful designs for the best night's sleep."}
         </p>
-      </div>
+      </motion.div>
 
       {/* Filter Toggle (mobile) */}
-      <div className="mb-6 flex items-center justify-between">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        className="mb-6 flex items-center justify-between"
+      >
         <p className="text-sm text-muted-foreground">
           {filteredProducts.length} product{filteredProducts.length !== 1 ? "s" : ""}
         </p>
@@ -64,14 +80,20 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           <SlidersHorizontal className="h-4 w-4" />
           Filters {activeFilters > 0 && `(${activeFilters})`}
         </Button>
-      </div>
+      </motion.div>
 
       <div className="flex gap-8">
         {/* Sidebar Filters */}
-        <aside
-          className={`${showFilters ? "block" : "hidden"} w-full shrink-0 md:block md:w-56`}
-        >
-          <div className="sticky top-24 space-y-6 rounded-xl border border-border bg-card p-5">
+        <AnimatePresence>
+          {(showFilters || typeof window !== 'undefined' && window.innerWidth >= 768) && (
+            <motion.aside
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              className={`${showFilters ? "block" : "hidden"} w-full shrink-0 md:block md:w-56`}
+            >
+          <div className="sticky top-24 space-y-6 rounded-xl border border-border bg-card p-5 shadow-lg">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-semibold text-foreground">Filters</h3>
               {activeFilters > 0 && (
@@ -94,17 +116,19 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
               </p>
               <div className="flex flex-wrap gap-2">
                 {sizeOptions.map((size) => (
-                  <button
+                  <motion.button
                     key={size}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => setSelectedSize(selectedSize === size ? null : size)}
-                    className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
+                    className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-all shadow-sm ${
                       selectedSize === size
-                        ? "border-primary bg-primary text-primary-foreground"
+                        ? "border-primary bg-primary text-primary-foreground shadow-md"
                         : "border-border bg-background text-foreground hover:border-primary/50"
                     }`}
                   >
                     {size}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
             </div>
@@ -116,25 +140,34 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
               </p>
               <div className="flex flex-col gap-1.5">
                 {priceRanges.map((range, idx) => (
-                  <button
+                  <motion.button
                     key={range.label}
+                    whileHover={{ scale: 1.02, x: 3 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setSelectedPrice(idx)}
                     className={`rounded-lg px-3 py-1.5 text-left text-xs font-medium transition-colors ${
                       selectedPrice === idx
-                        ? "bg-primary/10 text-primary"
+                        ? "bg-primary/10 text-primary shadow-sm"
                         : "text-foreground hover:bg-muted"
                     }`}
                   >
                     {range.label}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
             </div>
           </div>
-        </aside>
+        </motion.aside>
+          )}
+        </AnimatePresence>
 
         {/* Product Grid */}
-        <div className="flex-1">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="flex-1"
+        >
           {/* Active filter pills */}
           {activeFilters > 0 && (
             <div className="mb-4 flex flex-wrap gap-2">
@@ -158,7 +191,11 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
           )}
 
           {filteredProducts.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 text-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center justify-center py-20 text-center"
+            >
               <p className="text-lg font-semibold text-foreground">No products found</p>
               <p className="mt-1 text-sm text-muted-foreground">
                 Try adjusting your filters to find what you are looking for.
@@ -173,16 +210,28 @@ export default function CategoryPage({ params }: { params: Promise<{ slug: strin
               >
                 Clear Filters
               </Button>
-            </div>
+            </motion.div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {filteredProducts.map((product, idx) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.05 }}
+                >
+                  <ProductCard product={product} />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }
