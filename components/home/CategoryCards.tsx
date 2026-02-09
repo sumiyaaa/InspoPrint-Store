@@ -57,43 +57,36 @@ export function CategoryCards() {
         variants={container}
         initial="hidden"
         whileInView="show"
-        viewport={{ once: true }}
-        className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2"
+        viewport={{ once: true, margin: "-100px" }}
+        className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-2"
       >
         {categories.map((cat) => (
           <motion.div key={cat.name} variants={item}>
             <Link
               href={cat.href}
-              className="group relative block overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-shadow duration-300"
+              className="group relative block overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-all duration-500"
             >
               <motion.div
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-                className="relative aspect-[16/10] overflow-hidden"
+                whileHover={{ scale: 1.0 }}
+                className="relative aspect-[16/9] overflow-hidden"
               >
                 <Image
                   src={cat.image || "/placeholder.svg"}
                   alt={cat.name}
                   fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/30 to-transparent transition-opacity group-hover:from-foreground/70" />
-                <div className="absolute inset-0 flex flex-col items-start justify-end p-6 md:p-8">
-                  <span className="text-xs font-semibold uppercase tracking-wider text-background/90">
-                    {cat.count}
-                  </span>
-                  <h3 className="mt-1 text-2xl font-bold text-background md:text-3xl">
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors duration-500" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                  <h3 className="font-heading text-4xl font-bold text-white mb-2 tracking-wide italic">
                     {cat.name}
                   </h3>
-                  <p className="mt-1 text-sm text-background/90">{cat.description}</p>
-                  <motion.div
-                    className="mt-4 flex items-center gap-2 text-sm font-medium text-background"
-                    whileHover={{ x: 5 }}
-                    transition={{ duration: 0.2 }}
+                  <div
+                    className="mt-4 px-6 py-2 bg-primary text-white text-sm font-bold uppercase tracking-wider rounded-full hover:bg-primary/90 transition-colors"
                   >
-                    Shop Now <ArrowRight className="h-4 w-4" />
-                  </motion.div>
+                    Shop Now
+                  </div>
                 </div>
               </motion.div>
             </Link>

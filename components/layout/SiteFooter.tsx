@@ -28,9 +28,9 @@ export function SiteFooter() {
                 transition={{ duration: 0.5 }}
                 className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary shadow-md"
               >
-                <span className="text-sm font-bold text-primary-foreground">PP</span>
+                <span className="text-sm font-bold text-primary-foreground">IP</span>
               </motion.div>
-              <span className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">PrintPulse</span>
+              <span className="text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">Inspo Print</span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
               Custom printed T-shirts and pajamas that express your unique style. Quality fabrics,

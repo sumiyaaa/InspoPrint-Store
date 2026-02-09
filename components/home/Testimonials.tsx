@@ -73,9 +73,9 @@ export function Testimonials() {
               key={testimonial.name}
               variants={item}
               whileHover={{ y: -8 }}
-              className="relative rounded-2xl border-2 border-border bg-card p-8 shadow-lg hover:shadow-2xl hover:border-primary/30 transition-all"
+              className="relative rounded-2xl border border-border/50 bg-card p-8 shadow-md hover:shadow-2xl hover:border-primary/20 transition-all duration-300"
             >
-              <Quote className="absolute top-6 right-6 h-12 w-12 text-primary/10" />
+              <Quote className="absolute top-6 right-6 h-12 w-12 text-primary/5" />
               <div className="relative">
                 <div className="flex gap-1 mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (

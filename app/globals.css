@@ -16,33 +16,33 @@
     --card-foreground: 220 20% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 220 20% 15%;
-    --primary: 350 80% 60%;
+    --primary: 217 90% 55%; /* Bright Blue */
     --primary-foreground: 0 0% 100%;
-    --secondary: 35 60% 95%;
+    --secondary: 206 80% 96%; /* Very Light Blue */
     --secondary-foreground: 220 20% 15%;
     --muted: 210 20% 96%;
     --muted-foreground: 220 10% 45%;
-    --accent: 174 60% 45%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 45 100% 50%; /* Yellow/Gold Accent */
+    --accent-foreground: 0 0% 15%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
     --border: 220 15% 90%;
     --input: 220 15% 90%;
-    --ring: 350 80% 60%;
-    --chart-1: 350 80% 60%;
-    --chart-2: 174 60% 45%;
+    --ring: 217 90% 55%;
+    --chart-1: 217 90% 55%;
+    --chart-2: 45 100% 50%;
     --chart-3: 35 80% 55%;
     --chart-4: 220 60% 55%;
     --chart-5: 280 50% 55%;
-    --radius: 0.625rem;
+    --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 220 20% 15%;
-    --sidebar-primary: 350 80% 60%;
+    --sidebar-primary: 217 90% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 35 60% 95%;
+    --sidebar-accent: 206 80% 96%;
     --sidebar-accent-foreground: 220 20% 15%;
     --sidebar-border: 220 15% 90%;
-    --sidebar-ring: 350 80% 60%;
+    --sidebar-ring: 217 90% 55%;
   }
 }
 
@@ -50,8 +50,11 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
   }
 }
 
